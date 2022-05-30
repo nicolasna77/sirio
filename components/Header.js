@@ -184,14 +184,7 @@ const Header = () => {
             </IconButton>
             <Link href="/panier">
               <IconButton size="large">
-                <Badge
-                  badgeContent={
-                    Object.entries(state).Panier.length <= 0
-                      ? `Panier vide`
-                      : this.state.Panier.length
-                  }
-                  color="secondary"
-                >
+                <Badge badgeContent={3} color="secondary">
                   <ShoppingCartIcon />
                 </Badge>
               </IconButton>

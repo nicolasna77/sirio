@@ -8,7 +8,6 @@ import IconButton from "@mui/material/IconButton";
 import Grid from "@mui/material/Grid";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ListItem from "@mui/material/ListItem";
-import data from "../data";
 import ItemPanier from "./ItemPanier";
 import { useState } from "react";
 
@@ -35,9 +34,9 @@ const ListPanier = () => {
             <Box>
               <Typography variant="subtitle1" component="div">
                 Total Articles :{" "}
-                {this.state.Panier.length <= 0
+                {/* {this.state.Panier.length <= 0
                   ? `Panier vide`
-                  : this.state.Panier.length}
+                  : this.state.Panier.length} */}
               </Typography>
             </Box>
           </Grid>

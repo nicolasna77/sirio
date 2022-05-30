@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Header from "../components/Header";
 import Selection from "../components/Selection";
@@ -12,10 +12,17 @@ import Grow from "@mui/material/Grow";
 import Paper from "@mui/material/Paper";
 import Popper from "@mui/material/Popper";
 import MenuItem from "@mui/material/MenuItem";
-import { data } from "../db.json";
 import CardProduct from "../components/CardProduct.js";
+import axios from "axios";
 
 const Home = () => {
+  const [produit, setProduit] = React.useState(null);
+  React.useEffect(() => {
+    axios.get("http://localhost:3000/produit").then((response) => {
+      setPost(response.data);
+    });
+  }, []);
+
   const [open, setOpen] = React.useState(false);
   const [openFilter, setOpenFilter] = React.useState(false);
   const anchorRef = React.useRef(null);
@@ -50,6 +57,10 @@ const Home = () => {
 
     setOpenFilter(false);
   };
+  useEffect = () => {
+    axios.get("/protuits");
+  };
+
   return (
     <div>
       <div>
@@ -204,7 +215,7 @@ const Home = () => {
             }}
           >
             <Grid container spacing={3}>
-              {data.map((data) => {
+              {produit.map((data) => {
                 return <CardProduct key={data.id} data={data} />;
               })}
             </Grid>
