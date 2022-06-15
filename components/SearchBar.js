@@ -7,7 +7,6 @@ const SearchBar = () => {
   return (
     <Paper
       component="form"
-      elevation="0"
       sx={{
         borderRadius: "26px",
         width: "350px",

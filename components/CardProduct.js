@@ -49,21 +49,18 @@ const CardProduct = (props) => {
     data: { title, image, description, stars, price, color },
   } = props;
   return (
-    <Grid item xs="6" sm="4" md="3">
+    <Grid item xs={6} sm={4} md={3}>
       <Grow in="to">
         <Card elevation="0" className="cardProduct">
           <CardContent>
             <FavoriteButton />
-
-            <CardMedia component="img" height="170" src={image} alt={title} />
-
             <CardActionArea>
+              <CardMedia component="img" height="170" src={image} alt={title} />
               <Box>
                 <Rating
                   value={stars}
                   name="rating"
                   size="small"
-                  readOnly
                   precision={0.5}
                 />
               </Box>
@@ -75,39 +72,40 @@ const CardProduct = (props) => {
               <Typography variant="body2" color="text.primary">
                 {description}
               </Typography>
-            </CardActionArea>
-            <Grid container alignItems="center" xs={12} md={12} spacing="3">
-              <Grid container xs={12} sm={12} md={12}>
-                <CardActions>
-                  <FormControl>
-                    <CirclePicker
-                      circleSize={20}
-                      height="12px"
-                      colors={color}
-                    />
-                  </FormControl>
-                </CardActions>
-              </Grid>
 
-              <Grid item xs={12} sm={12} md={12}>
-                <IconButton
-                  color="primary"
-                  className="iconButtonAddShop"
-                  aria-label="ajouter au panier"
-                >
-                  <AddShoppingCartIcon />
-                </IconButton>
-                <Typography
-                  sx={{ float: "right" }}
-                  className="priceCardProduct"
-                  gutterBottom
-                  variant="subtitle1"
-                  component="div"
-                >
-                  {price} €
-                </Typography>
+              <Grid container alignItems="center" xs={12} md={12}>
+                <Grid item xs={12} sm={12} md={12}>
+                  <CardActions>
+                    <FormControl>
+                      <CirclePicker
+                        circleSize={20}
+                        height="12px"
+                        colors={color}
+                      />
+                    </FormControl>
+                  </CardActions>
+                </Grid>
+
+                <Grid item xs={12} sm={12} md={12}>
+                  <IconButton
+                    color="primary"
+                    className="iconButtonAddShop"
+                    aria-label="ajouter au panier"
+                  >
+                    <AddShoppingCartIcon />
+                  </IconButton>
+                  <Typography
+                    sx={{ float: "right" }}
+                    className="priceCardProduct"
+                    gutterBottom
+                    variant="subtitle1"
+                    component="div"
+                  >
+                    {price} €
+                  </Typography>
+                </Grid>
               </Grid>
-            </Grid>
+            </CardActionArea>
           </CardContent>
         </Card>
       </Grow>

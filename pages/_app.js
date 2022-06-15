@@ -3,13 +3,16 @@ import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@mui/system";
 import Footer from "../components/Footer.js";
 import Header from "../components/Header.js";
+import AppContextProvider, { AppContext } from "../context/App-Context";
+import SnackbarComp from "../components/SnackBar";
+import { useContext, useState } from "react";
 
 const theme = createTheme({
   components: {
     MuiCssBaseline: {
       styleOverrides: `
         @font-face {
-          font-family: 'roboto';
+          font-family: 'roboto, nunito';
           font-style: normal;
           font-display: swap;
           font-weight: 400;
@@ -36,15 +39,15 @@ const theme = createTheme({
   },
 });
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps, currentUser }) {
   return (
-    <>
+    <AppContextProvider>
       <ThemeProvider theme={theme}>
         <Header />
         <Component {...pageProps} />
         <Footer />
       </ThemeProvider>
-    </>
+    </AppContextProvider>
   );
 }
 

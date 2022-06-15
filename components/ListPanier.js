@@ -12,10 +12,10 @@ import ItemPanier from "./ItemPanier";
 import { useState } from "react";
 
 const ListPanier = () => {
-  recevoirProduit = (item) => {
-    this.state.Panier.push(item);
-    this.setState({ Panier: this.state.Panier });
-  };
+  // recevoirProduit = (item) => {
+  //   this.state.Panier.push(item);
+  //   this.setState({ Panier: this.state.Panier });
+  // };
   return (
     <Box
       pt={{ xs: 8, md: 8 }}
@@ -23,33 +23,17 @@ const ListPanier = () => {
       sx={{ margin: "auto", maxWidth: "1300px !important" }}
     >
       <Grid container md={10} sx={{ margin: "auto", flexGrow: 1 }}>
-        <Grid
-          container
-          xs={12}
-          sm={10}
-          md={8}
-          sx={{ margin: "auto", flexGrow: 1 }}
-        >
+        <Grid item xs={12} sm={10} md={8} sx={{ margin: "auto", flexGrow: 1 }}>
           <Grid item xs={10} sx={{ maxWidth: "700px !important" }}>
             <Box>
               <Typography variant="subtitle1" component="div">
                 Total Articles :{" "}
-                {/* {this.state.Panier.length <= 0
-                  ? `Panier vide`
-                  : this.state.Panier.length} */}
               </Typography>
             </Box>
           </Grid>
 
           <Grid container xs={12} md={12} sx={{ maxWidth: "700px !important" }}>
-            {this.state.Items.map((item, i) => (
-              <ItemPanier
-                key={i.toString()}
-                item={item}
-                recevoirProduit={this.recevoirProduit}
-              />
-            ))}
-
+            {/* <ItemPanier /> */}
             {/* <ListItem>
               <Grid item>
                 <ListItem>
@@ -80,7 +64,6 @@ const ListPanier = () => {
                 </IconButton>
               </Grid>
             </ListItem>
-
             <ListItem>
               <Grid item>
                 <ListItem>
@@ -120,23 +103,20 @@ const ListPanier = () => {
               <Box sx={{ width: "100%" }}>
                 <Box sx={{ width: "100%" }} mb="15px" mt="15px">
                   <Typography variant="h6" component="span">
-                    Total :
+                    {"Total :"}
                   </Typography>
                   <Typography variant="h6" component="span">
-                    {parseFloat(
-                      this.state.Panier.reduce((acc, prx) => acc + prx.price, 0)
-                    )}{" "}
-                    €
+                    {"€"}
                   </Typography>
                 </Box>
 
                 <Box sx={{ width: "100%" }}>
                   <Button variant="contained" color="secondary">
-                    Valider mon panier
+                    {"Valider mon panier"}
                   </Button>
                 </Box>
                 <Box sx={{ width: "100%" }} pt="10px">
-                  <Button color="secondary"> Continue mes achat</Button>
+                  <Button color="secondary">{"Continue mes achat"}</Button>
                 </Box>
               </Box>
             </Paper>

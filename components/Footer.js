@@ -4,7 +4,8 @@ import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Link from "next/link";
-
+import secure from "../public/secure-payment.png";
+import Image from "next/image";
 const Footer = () => {
   return (
     <div>
@@ -24,11 +25,11 @@ const Footer = () => {
                 alignContent="center"
                 spacing={4}
               >
-                <Grid item xs="6" md="4" sm="6">
+                <Grid item xs={3} md={4} sm={3}>
                   <Box justifyItems="center">
                     <img
                       alt=""
-                      className="imgSubFooter "
+                      className="imgSubFooter"
                       src="../secure-payment.png"
                     />
                   </Box>
@@ -42,7 +43,7 @@ const Footer = () => {
                   </Typography>
                 </Grid>
 
-                <Grid item xs="6" md="4" sm="6">
+                <Grid item xs={6} md={4} sm={6}>
                   <Box>
                     <img
                       alt=""
@@ -55,7 +56,7 @@ const Footer = () => {
                   </Typography>
                 </Grid>
 
-                <Grid item xs="6" md="4" sm="6">
+                <Grid item xs={6} md={4} sm={6}>
                   <Box>
                     <img alt="" className="imgSubFooter" src="../return.png" />
                   </Box>
@@ -79,7 +80,7 @@ const Footer = () => {
             >
               <Grid item justifyContent="center">
                 <div>
-                  <img class="logoHeader" alt="logo" src={"/logo.png"} />
+                  <img className="logoHeader" alt="logo" src={"/logo.png"} />
                 </div>
               </Grid>
             </Grid>
@@ -111,20 +112,20 @@ const Footer = () => {
                   <Grid item xs={4} sm={4} md={2}>
                     <Box>
                       <Typography gutterBottom variant="h6" component="div">
-                        Compte
+                        {"Compte"}
                       </Typography>
                     </Box>
                     <Box pb={{ xs: 1, md: 1 }}>
                       <Link href="/">Connection</Link>
                     </Box>
                     <Box pb={{ xs: 1, md: 1 }}>
-                      <Link href="/">S'enregistrer</Link>
+                      <Link href="/">{"S'enregistrer"}</Link>
                     </Box>
                   </Grid>
                   <Grid item xs={4} sm={4} md={2}>
                     <Box pb={{ xs: 1, md: 1 }}>
                       <Typography gutterBottom variant="h6" component="div">
-                        Pages
+                        {"Pages"}
                       </Typography>
                     </Box>
                     <Box pb={{ xs: 1, md: 1 }}>
