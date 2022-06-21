@@ -5,6 +5,7 @@ import {
   signOut,
 } from "firebase/auth";
 import { getFirestore, addDoc, collection, getDocs } from "firebase/firestore";
+import { useState } from "react";
 import { app } from "../firebase-config";
 
 const db = getFirestore(app);
@@ -61,7 +62,7 @@ const dataPop = async () => {
     const data = doc.data();
     arr.push(data);
   });
-  dataPop();
+  return arr;
 };
 
 export { signIn, loginOut, signUp, dataPop };

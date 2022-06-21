@@ -47,7 +47,9 @@ function ColorlibStepIcon(props) {
 }
 const StepperPanier = () => {
   return (
-    <Box sx={{ width: "80%", margin: "auto" }} pt={{ xs: 3, md: 3 }}>
+    <Box
+      sx={{ width: "100%", maxWidth: "1000px", margin: "0 auto", mt: "50px" }}
+    >
       <Stepper alternativeLabel>
         {steps.map((label) => (
           <Step key={label}>

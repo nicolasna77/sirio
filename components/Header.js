@@ -24,6 +24,7 @@ const Header = () => {
   const { user } = useContext(AppContext);
 
   const clickLogin = async () => {
+    console.log(user);
     if (user) {
       await loginOut();
     } else {

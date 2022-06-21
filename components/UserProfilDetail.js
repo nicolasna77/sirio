@@ -16,8 +16,8 @@ const UserProfilDetail = () => {
     <form autoComplete="off" noValidate>
       <Card>
         <CardHeader
-          subheader="Vous poubez modifier vos information"
-          title="Mon profile"
+          subheader="Vous pouvez modifier vos information"
+          title="Mon profil"
         ></CardHeader>
         <Divider />
         <CardContent>

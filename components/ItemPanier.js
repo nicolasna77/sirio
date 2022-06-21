@@ -1,4 +1,6 @@
 import {
+  Avatar,
+  Divider,
   Grid,
   IconButton,
   Input,
@@ -7,43 +9,60 @@ import {
   Typography,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-const ItemPanier = () => {
+import { CartState } from "../context/App-Context";
+
+const ItemPanier = (props, { prod }) => {
+  const {
+    prod: { id, title, image, body, stars, price, color },
+  } = props;
+  console.log({ prod });
+
+  const {
+    state: { cart },
+    dispatch,
+  } = CartState();
   return (
-    <div>
-      <ListItem>
-        <Grid item>
-          <ListItem>
-            <img src={""} alt="" srcset="" width="120px" />
-          </ListItem>
-        </Grid>
-
-        <Grid item xs={7}>
-          <ListItemText primary="Table Salon" secondary="color : grey" />
-        </Grid>
-        <Grid item xs="3">
-          <Input
-            defaultValue="1"
-            sx={{ width: "35px" }}
-            size="small"
-            name="quantiteProduit"
-            type="number"
-          ></Input>
-        </Grid>
-
-        <Grid item xs="3">
-          <Typography variant="h6">
-            {/* {price} */}
-            {""}€
-          </Typography>
-        </Grid>
-
-        <Grid item>
-          <IconButton edge="end" aria-label="delete">
-            <DeleteIcon color="error" />
-          </IconButton>
-        </Grid>
-      </ListItem>
-    </div>
+    <ListItem>
+      <Grid item sx={{ mr: 3 }}>
+        <Avatar
+          sx={{ width: 124, height: 74 }}
+          variant="square"
+          src={image}
+          alt=""
+          srcset=""
+        />
+      </Grid>
+      <Grid item xs={4}>
+        <ListItemText primary={title} secondary="color :" />
+      </Grid>
+      <Grid item xs={2}>
+        <Typography variant={"h6"}>{price}€</Typography>
+      </Grid>
+      <Grid item xs={1}>
+        <Input
+          defaultValue="1"
+          sx={{ width: "35px" }}
+          size="small"
+          name="quantiteProduit"
+          type="number"
+        ></Input>
+      </Grid>
+      <Grid item>
+        <IconButton
+          edge="end"
+          aria-label="delete"
+          onClick={() =>
+            dispatch({
+              type: "REMOVE_FROM_CART",
+              payload: prod,
+            })
+          }
+        >
+          <DeleteIcon color="error" />
+        </IconButton>
+      </Grid>
+      <Divider />
+    </ListItem>
   );
 };
 

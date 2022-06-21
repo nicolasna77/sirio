@@ -4,20 +4,17 @@ import Selection from "../components/Selection";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
-// import CardProduct from "../components/CardProduct.js";
-// import data from "../data";
+import CardProduct from "../components/CardProduct.js";
 import ItemCategories from "../components/ItemCategories";
 import categories from "../categories";
-import { Container } from "@mui/material";
-import { dataPop } from "../context/firebase";
+import { Container, Grow } from "@mui/material";
+import useApi from "../components/service/useApi";
 const Home = () => {
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
+  const { res } = useApi();
 
-  useEffect(() => {
-    dataPop();
-    setData(data);
-  }, []);
-  console.log(data);
+  console.log(res);
+
   return (
     <div>
       <Selection />
@@ -62,9 +59,10 @@ const Home = () => {
             </Grid>
           </Grid>
           <Grid container spacing={3}>
-            {/* {data.map((data) => {
-              return <CardProduct key={data.id} data={data} />;
-            })} */}
+            {res &&
+              res.map((prod) => {
+                return <CardProduct key={prod.id} prod={prod} />;
+              })}
           </Grid>
         </Box>
       </div>

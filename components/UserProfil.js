@@ -14,7 +14,7 @@ const UserProfil = () => {
 
   // useEffect(() => {
   //   if (user) {
-  //     const starCountRef = collection(db, "users/" + user.uid);
+  //     const starCountRef = collection(db, "users" + user.uid);
   //     onValue(starCountRef, (snapshot) => {
   //       if (snapshot.exists()) {
   //         var data = snapshot.val();
