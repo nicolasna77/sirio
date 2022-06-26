@@ -9,12 +9,9 @@ import {
 import * as React from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import useApi from "./service/useApi";
-import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 
 const SearchBar = () => {
-  // const [data, setData] = useState([]);
   const { res } = useApi();
 
   return (
@@ -25,18 +22,18 @@ const SearchBar = () => {
         options={res}
         getOptionLabel={(option) => option.title}
         renderOption={(props, option) => (
-          <Link href={"/produit/" + option.id}>
+          <Link href={"/produit/" + option.uid}>
             <Box
               component="li"
               sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
               {...props}
             >
-              <img
+              <image
                 loading="lazy"
-                width="50"
+                width={50}
                 src={option.image}
                 srcSet={option.image}
-                alt=""
+                alt={option.image}
               />
               <Grid container>
                 <Grid item>
@@ -46,14 +43,10 @@ const SearchBar = () => {
                   ></Typography>
                 </Grid>
                 <Grid item xs={10}>
-                  <Typography variant="subtitle2" component={"span"}>
-                    {option.title}
-                  </Typography>
+                  <Typography variant="subtitle2">{option.title}</Typography>
                 </Grid>
                 <Grid item xs={2} sx={{ float: "right" }}>
-                  <Typography variant="subtitle2" component={"span"}>
-                    {option.price}€
-                  </Typography>
+                  <Typography variant="subtitle2">{option.price}€</Typography>
                 </Grid>
               </Grid>
             </Box>
@@ -72,22 +65,12 @@ const SearchBar = () => {
                   <IconButton size="small">
                     <SearchIcon />
                   </IconButton>
-                  {params.InputProps.startAdornment}
                 </React.Fragment>
               ),
             }}
           />
         )}
       />
-
-      {/* <Autocomplete
-        disablePortal
-        id="combo-box-demo"
-        options={res}
-        getOptionLabel={(option) => option.title}
-        sx={{ width: 300 }}
-        renderInput={(params) => <TextField {...params} label="Movie" />}
-      /> */}
     </div>
   );
 };

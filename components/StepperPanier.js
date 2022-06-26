@@ -1,62 +1,105 @@
+import { Button, Grid, Typography } from "@mui/material";
+import { Box } from "@mui/system";
 import * as React from "react";
-import Box from "@mui/material/Box";
-import Stepper from "@mui/material/Stepper";
-import Step from "@mui/material/Step";
-import StepLabel from "@mui/material/StepLabel";
-import { styled } from "@mui/material/styles";
-import FeedIcon from "@mui/icons-material/Feed";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import PaymentIcon from "@mui/icons-material/Payment";
+import { useEffect, useState } from "react";
+import { CartState } from "../context/App-Context";
+import ItemPanier from "./ItemPanier";
 
-const ColorlibStepIconRoot = styled("div")(({ ownerState }) => ({
-  zIndex: 1,
-  color: "#888",
-  display: "flex",
-  borderRadius: "50%",
-  justifyContent: "center",
-  alignItems: "center",
+const StepperPanier = (props) => {
+  const {
+    state: { cart },
+    dispatch,
+  } = CartState();
+  const { setActiveStep } = props;
 
-  ...(ownerState.active && {
-    color: "#9c1019",
-  }),
-  ...(ownerState.completed && {
-    backgroundImage:
-      "linear-gradient( 136deg, rgb(242,113,33) 0%, rgb(233,64,87) 50%, rgb(138,35,135) 100%)",
-  }),
-}));
-
-const steps = ["Panier", "Detail livraison", "Payement"];
-
-function ColorlibStepIcon(props) {
-  const { active, completed, className } = props;
-
-  const icons = {
-    1: <ShoppingCartIcon />,
-    2: <FeedIcon />,
-    3: <PaymentIcon />,
+  const handleNext = () => {
+    console.log("fefr");
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
+  const [total, setTotal] = useState();
 
-  return (
-    <ColorlibStepIconRoot
-      ownerState={{ completed, active }}
-      className={className}
-    >
-      {icons[String(props.icon)]}
-    </ColorlibStepIconRoot>
-  );
-}
-const StepperPanier = () => {
+  useEffect(() => {
+    setTotal(
+      cart.reduce((acc, curr) => acc + Number(curr.price) * curr.qty, 0)
+    );
+  }, [cart]);
+
   return (
     <Box
-      sx={{ width: "100%", maxWidth: "1000px", margin: "0 auto", mt: "50px" }}
+      pt={{ xs: 8, md: 8 }}
+      pb={{ xs: 8, md: 8 }}
+      sx={{ margin: "auto", maxWidth: "1200px !important" }}
     >
-      <Stepper alternativeLabel>
-        {steps.map((label) => (
-          <Step key={label}>
-            <StepLabel StepIconComponent={ColorlibStepIcon}>{label}</StepLabel>
-          </Step>
-        ))}
-      </Stepper>
+      {cart.length === 0 ? (
+        <Typography variant="h6">{"Votre panier est vide."}</Typography>
+      ) : (
+        <Grid container xs={10} md={10} sx={{ margin: "auto", flexGrow: 1 }}>
+          <Grid
+            container
+            item
+            xs={12}
+            sm={10}
+            md={8}
+            sx={{ margin: "auto", flexGrow: 1 }}
+          >
+            <Grid item xs={10} sx={{ minWidth: "700px !important" }}>
+              <Box>
+                <Typography variant="subtitle1" component="div">
+                  {"Liste d'achat :"}
+                </Typography>
+              </Box>
+            </Grid>
+
+            <Grid xs={12}>
+              {cart.map((prod) => (
+                <ItemPanier prod={prod} key={prod.id}></ItemPanier>
+              ))}
+            </Grid>
+          </Grid>
+          <Grid item xs={12} sm={12} md={3}>
+            <Box sx={{ width: "100%", textAlign: "center" }}>
+              <Box sx={{ width: "100%" }}>
+                <Box sx={{ width: "100%" }} mb="15px" mt="15px">
+                  <Grid container sx={{ mb: 2 }}>
+                    <Grid item xs={6}>
+                      <Typography variant="subtitle2" component={"span"}>
+                        {"Nombre d'article:"}
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Typography variant="subtitle2" component={"span"}>
+                        ({cart.length})
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                  <Grid container>
+                    <Grid xs={6}>
+                      <Typography variant="h6" component={"span"}>
+                        {"Total :"}
+                      </Typography>
+                    </Grid>
+                    <Grid xs={6}>
+                      <Typography variant="h6" component={"span"}>
+                        {total} {"€"}
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                </Box>
+
+                <Box sx={{ pb: 3 }}>
+                  <Button
+                    variant="contained"
+                    onClick={() => handleNext()}
+                    color="secondary"
+                  >
+                    {"Valider mon panier"}
+                  </Button>
+                </Box>
+              </Box>
+            </Box>
+          </Grid>
+        </Grid>
+      )}
     </Box>
   );
 };

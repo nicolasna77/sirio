@@ -16,22 +16,22 @@ import { Button } from "@mui/material";
 const Filter = () => {
   const [open, setOpen] = React.useState(false);
   const [openFilter, setOpenFilter] = React.useState(false);
+
   const anchorRef = React.useRef(null);
   const anchorRefFilter = React.useRef(null);
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
   };
-
-  const handleToggleFilter = () => {
-    setOpenFilter((prevOpenFilter) => !prevOpenFilter);
-  };
-
   const handleClose = (event) => {
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
       return;
     }
     setOpen(false);
+  };
+
+  const handleToggleFilter = () => {
+    setOpenFilter((prevOpenFilter) => !prevOpenFilter);
   };
 
   const handleCloseFilter = (event) => {
@@ -45,25 +45,26 @@ const Filter = () => {
     setOpenFilter(false);
   };
   return (
-    <div>
-      <Button
-        ref={anchorRefFilter}
-        variant="outlined"
-        color="primary"
-        id="filter-button"
-        aria-controls={openFilter ? "menuFilter" : undefined}
-        aria-expanded={openFilter ? "true" : undefined}
-        aria-haspopup="true"
-        startIcon={<FilterAltIcon />}
-        onClick={handleToggleFilter}
-      >
-        Trier par
-      </Button>
-
+    <Grid container>
+      <Grid>
+        <Button
+          ref={anchorRefFilter}
+          variant="outlined"
+          color="primary"
+          id="filter-button"
+          aria-controls={openFilter ? "menuFilter" : undefined}
+          aria-expanded={openFilter ? "true" : undefined}
+          aria-haspopup="true"
+          startIcon={<FilterAltIcon />}
+          onClick={handleToggleFilter}
+        >
+          Trier par
+        </Button>
+      </Grid>
       <Popper
         openFilter={openFilter}
         anchorEl={anchorRefFilter.current}
-        placement="bottom-start"
+        placement={"bottom-start"}
         transition
         disablePortal
         className="menuFilter"
@@ -75,45 +76,26 @@ const Filter = () => {
               transformOrigin: (placement = "right top"),
             }}
           >
-            <Paper>
-              <ClickAwayListener onClickAway={handleCloseFilter}>
-                <MenuList
-                  autoFocusItem={openFilter}
-                  id="menuFilter"
-                  aria-labelledby="filter-button"
-                >
-                  <MenuItem onClick={handleCloseFilter}>hrthrhr</MenuItem>
-                  <MenuItem onClick={handleCloseFilter}>
-                    Prix décroissants
-                  </MenuItem>
-                  <MenuItem onClick={handleCloseFilter}>
-                    Notes croissantes
-                  </MenuItem>
-                  <MenuItem onClick={handleCloseFilter}>
-                    Notes décroissantes
-                  </MenuItem>
-                </MenuList>
-              </ClickAwayListener>
-            </Paper>
+            <Paper>bonjour</Paper>
           </Grow>
         )}
       </Popper>
-      <IconButton
-        ref={anchorRef}
-        id="composition-button"
-        aria-controls={open ? "composition-menu" : undefined}
-        aria-expanded={open ? "true" : undefined}
-        aria-haspopup="true"
-        onClick={handleToggle}
-        className="iconSort"
-      >
-        <SortIcon />
-      </IconButton>
-
+      <Grid>
+        <IconButton
+          ref={anchorRef}
+          id="composition-button"
+          aria-controls={open ? "composition-menu" : undefined}
+          aria-expanded={open ? "true" : undefined}
+          aria-haspopup="true"
+          onClick={handleToggle}
+          className="iconSort"
+        >
+          <SortIcon />
+        </IconButton>
+      </Grid>
       <Popper
         open={open}
         anchorEl={anchorRef.current}
-        role={undefined}
         placement="bottom-start"
         transition
         disablePortal
@@ -143,7 +125,7 @@ const Filter = () => {
           </Grow>
         )}
       </Popper>
-    </div>
+    </Grid>
   );
 };
 

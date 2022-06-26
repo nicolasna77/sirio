@@ -7,7 +7,16 @@ import Badge from "@mui/material/Badge";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
-import { Avatar, Button, Grid, ListItemIcon } from "@mui/material";
+import {
+  Avatar,
+  Button,
+  ButtonBase,
+  CardContent,
+  Grid,
+  ListItemIcon,
+  Stack,
+  Typography,
+} from "@mui/material";
 import SearchBar from "./SearchBar";
 import PersonIcon from "@mui/icons-material/Person";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -18,13 +27,21 @@ import logo from "../public/logo.png";
 import LockIcon from "@mui/icons-material/Lock";
 import { loginOut } from "../context/firebase";
 
-import { AccountCircle, PersonAdd } from "@mui/icons-material";
+import {
+  AccountCircle,
+  Logout,
+  LogoutOutlined,
+  LogoutRounded,
+  LogoutTwoTone,
+  PersonAdd,
+  Settings,
+} from "@mui/icons-material";
 import AppContext from "../context/AuthContext";
+import { CartState } from "../context/App-Context";
 const Header = () => {
   const { user } = useContext(AppContext);
 
   const clickLogin = async () => {
-    console.log(user);
     if (user) {
       await loginOut();
     } else {
@@ -42,6 +59,11 @@ const Header = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const {
+    state: { cart },
+    dispatch,
+  } = CartState();
 
   return (
     <Box sx={{ flexGrow: 1 }} elevation={1}>
@@ -67,49 +89,29 @@ const Header = () => {
           </Grid>
 
           <Box sx={{ flexGrow: 1 }} />
-
-          <Box sx={{ display: { xs: "none", sm: "none", md: "flex" } }}>
-            <Link href="/panier">
-              <IconButton size="large">
-                <Badge badgeContent={4} color="secondary">
-                  <ShoppingCartIcon />
-                </Badge>
-              </IconButton>
-            </Link>
-            {user ? (
-              <IconButton onClick={handleClick}>
-                <Avatar alt={user.email}></Avatar>
-              </IconButton>
-            ) : (
-              <IconButton size="large" onClick={handleClick}>
-                <PersonIcon />
-              </IconButton>
-            )}
-          </Box>
-
-          {/* version mobile */}
           <Box sx={{ display: { xs: "flex", sm: "flex", md: "none" } }}>
             <IconButton size="large">
               <SearchIcon />
             </IconButton>
-            <Link href="/panier">
-              <IconButton size="large">
-                <Badge badgeContent={3} color="secondary">
-                  <ShoppingCartIcon />
-                </Badge>
-              </IconButton>
-            </Link>
-
-            {user ? (
-              <IconButton onClick={handleClick}>
-                <Avatar>{user.email}</Avatar>
-              </IconButton>
-            ) : (
-              <IconButton size="large" onClick={handleClick}>
-                <PersonIcon />
-              </IconButton>
-            )}
           </Box>
+
+          <Link href="/panier">
+            <IconButton size="large">
+              <Badge badgeContent={cart.length} color="secondary">
+                <ShoppingCartIcon />
+              </Badge>
+            </IconButton>
+          </Link>
+
+          {user ? (
+            <IconButton onClick={handleClick}>
+              <Avatar>{user.lastName}</Avatar>
+            </IconButton>
+          ) : (
+            <IconButton size="large" onClick={handleClick}>
+              <PersonIcon />
+            </IconButton>
+          )}
 
           <Box>
             {user ? (
@@ -144,18 +146,26 @@ const Header = () => {
                 transformOrigin={{ horizontal: "right", vertical: "top" }}
                 anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
               >
+                <CardContent sx={{ px: 2.5, textAlign: "center" }}>
+                  <Stack alignItems="center">
+                    <Typography variant="subtitle1">
+                      {user.firstName} {user.lastName}
+                    </Typography>
+                  </Stack>
+                </CardContent>
                 <Link href="/profil">
                   <MenuItem>
                     <ListItemIcon>
-                      <AccountCircle fontSize="small" />
+                      <Settings fontSize={"small"} />
                     </ListItemIcon>
                     {"Mon Profil"}
                   </MenuItem>
                 </Link>
-                <MenuItem>
-                  <Button color="error" onClick={clickLogin}>
-                    {"Deconnection"}
-                  </Button>
+                <MenuItem onClick={clickLogin}>
+                  <ListItemIcon>
+                    <LogoutOutlined color={"secondary"} fontSize={"small"} />
+                  </ListItemIcon>
+                  <Typography color={"secondary"}>{"Deconnection"}</Typography>
                 </MenuItem>
               </Menu>
             ) : (
@@ -165,7 +175,6 @@ const Header = () => {
                 onClose={handleClose}
                 onClick={handleClose}
                 PaperProps={{
-                  elevation: 1,
                   sx: {
                     filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
                     mt: 1.5,
@@ -203,7 +212,7 @@ const Header = () => {
                     <ListItemIcon>
                       <LockIcon fontSize="small" />
                     </ListItemIcon>
-                    Connection
+                    {"Connection"}
                   </MenuItem>
                 </Link>
               </Menu>

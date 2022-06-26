@@ -1,15 +1,7 @@
 import { useState } from "react";
 import { useEffect } from "react";
 import { app } from "../../firebase-config";
-import {
-  getFirestore,
-  addDoc,
-  collection,
-  getDocs,
-  collectionGroup,
-  where,
-  query,
-} from "firebase/firestore";
+import { getFirestore, collection, getDocs } from "firebase/firestore";
 
 const useApi = () => {
   const db = getFirestore(app);
@@ -22,7 +14,7 @@ const useApi = () => {
         const querySnapshot = await getDocs(q);
         const arr = [];
         querySnapshot.forEach((doc) => {
-          const data = doc.data();
+          const data = { uid: doc.id, ...doc.data() };
           arr.push(data);
         });
         setRes(arr);

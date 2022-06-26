@@ -54,15 +54,4 @@ const signUp = async (email, password, firstName, lastName) => {
   }
 };
 
-const dataPop = async () => {
-  const q = collection(db, "produits");
-  const querySnapshot = await getDocs(q);
-  const arr = [];
-  querySnapshot.forEach((doc) => {
-    const data = doc.data();
-    arr.push(data);
-  });
-  return arr;
-};
-
-export { signIn, loginOut, signUp, dataPop };
+export { signIn, loginOut, signUp };

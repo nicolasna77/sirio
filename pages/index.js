@@ -10,7 +10,6 @@ import categories from "../categories";
 import { Container, Grow } from "@mui/material";
 import useApi from "../components/service/useApi";
 const Home = () => {
-  // const [data, setData] = useState([]);
   const { res } = useApi();
 
   console.log(res);
@@ -48,7 +47,7 @@ const Home = () => {
           }}
         >
           <Grid container>
-            <Grid item xs={6} sm={"auto"}>
+            <Grid item xs={"auto"} sm={"auto"}>
               <div className="titleCardPop">
                 <Typography gutterBottom variant="h6" component="div">
                   Produits populaires
@@ -61,7 +60,7 @@ const Home = () => {
           <Grid container spacing={3}>
             {res &&
               res.map((prod) => {
-                return <CardProduct key={prod.id} prod={prod} />;
+                return <CardProduct key={prod.uid} prod={prod} />;
               })}
           </Grid>
         </Box>

@@ -4,14 +4,12 @@ import CardMedia from "@mui/material/CardMedia";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { Button, CardActionArea } from "@mui/material";
+import { Avatar, AvatarGroup, Button, CardActionArea } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import Grid from "@mui/material/Grid";
 import Rating from "@mui/material/Rating";
-import CardActions from "@mui/material/CardActions";
 import Favorite from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import FormControl from "@mui/material/FormControl";
 import Grow from "@mui/material/Grow";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import Link from "next/link";
@@ -47,8 +45,6 @@ class FavoriteButton extends React.Component {
 }
 
 const CardProduct = ({ prod }) => {
-  // const { prod } = props;
-
   const {
     state: { cart },
     dispatch,
@@ -61,7 +57,9 @@ const CardProduct = ({ prod }) => {
           <CardContent>
             <FavoriteButton />
             <CardActionArea>
-              <Link href={"/produit/" + prod.id}>
+              <Link
+                href={{ pathname: "../produit/[id]", query: { id: prod.uid } }}
+              >
                 <div>
                   <CardMedia
                     component="img"
@@ -71,9 +69,10 @@ const CardProduct = ({ prod }) => {
                   />
                   <Box sx={{ p: 1 }}>
                     <Rating
-                      value={prod.stars}
+                      value={prod.rating}
                       name="rating"
                       size="small"
+                      readOnly
                       precision={0.5}
                     />
                   </Box>
@@ -86,7 +85,7 @@ const CardProduct = ({ prod }) => {
                       {prod.title}
                     </Typography>
 
-                    <Typography variant="body2" color="text.primary">
+                    <Typography noWrap variant="body2" color="text.primary">
                       {prod.body}
                     </Typography>
                   </Box>
@@ -110,7 +109,7 @@ const CardProduct = ({ prod }) => {
                 </Grid>
 
                 <Grid item xs={12} sm={12} md={12}>
-                  {cart.some((p) => p.id === prod.id) ? (
+                  {/* {cart.some((p) => p.id === prod.id) ? (
                     <Button
                       variant="danger"
                       onClick={() =>
@@ -136,7 +135,7 @@ const CardProduct = ({ prod }) => {
                     >
                       <AddShoppingCartIcon />
                     </IconButton>
-                  )}
+                  )} */}
 
                   <Typography
                     sx={{ float: "right" }}

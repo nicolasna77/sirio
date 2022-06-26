@@ -9,7 +9,7 @@ const ItemCategories = (props) => {
   const {
     categories: { id, imageUrl, nameCategorie },
   } = props;
-  const nameCategorieReg = nameCategorie.replace(/\s+$/, " ");
+  const nameCategorieReg = nameCategorie.replace(/ /g, "_");
   return (
     <div>
       <Link href={`/categorie/${nameCategorieReg}`}>

@@ -1,60 +1,50 @@
-import { Avatar, Box, Card, CardContent, Typography } from "@mui/material";
-import { onValue } from "firebase/database";
-import { collection } from "firebase/firestore";
-import { useContext, useEffect, useState } from "react";
-import { db } from "../firebase-config";
+import {
+  Avatar,
+  Box,
+  Card,
+  CardContent,
+  Grid,
+  Typography,
+} from "@mui/material";
+import { useContext, useState } from "react";
 import AppContext from "../context/AuthContext";
 
 const UserProfil = () => {
   const { user } = useContext(AppContext);
-  const [username, setUsername] = useState("");
-  const [lastname, setLastname] = useState("");
-  const [adresse, setAdresse] = useState("");
-  const [email, setEmail] = useState("");
 
-  // useEffect(() => {
-  //   if (user) {
-  //     const starCountRef = collection(db, "users" + user.uid);
-  //     onValue(starCountRef, (snapshot) => {
-  //       if (snapshot.exists()) {
-  //         var data = snapshot.val();
-  //         setUsername(data.firstName);
-  //         setLastname(data.lastName);
-  //         setAdresse(data.adresse);
-  //         setEmail(data.email);
-  //       }
-  //     });
-  //   }
-  // }, [user]);
+  console.log(user);
   return (
-    <Card>
-      <CardContent>
-        <Box
-          sx={{
-            alignItems: "center",
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
-          <Avatar
+    <Grid item lg={4} md={6} xs={12}>
+      <Card>
+        <CardContent>
+          <Box
             sx={{
-              height: 64,
-              mb: 2,
-              width: 64,
+              alignItems: "center",
+              display: "flex",
+              flexDirection: "column",
             }}
-          />
-          <Typography color="textPrimary" gutterBottom variant="h5">
-            {username} {lastname}
-          </Typography>
-          <Typography color="textSecondary" variant="body2">
-            {adresse}
-          </Typography>
-          <Typography color="textSecondary" variant="body2">
-            {email}
-          </Typography>
-        </Box>
-      </CardContent>
-    </Card>
+          >
+            <Avatar
+              sx={{
+                height: 64,
+                mb: 2,
+                width: 64,
+              }}
+            />
+
+            <Typography color="textPrimary" gutterBottom variant="h5">
+              {user && user.firstName} {user && user.lastName}
+            </Typography>
+            <Typography color="textSecondary" variant="body2">
+              {user && user.email}
+            </Typography>
+            <Typography color="textSecondary" variant="body2">
+              {user && user.adresse}, {user && user.city}
+            </Typography>
+          </Box>
+        </CardContent>
+      </Card>
+    </Grid>
   );
 };
 export default UserProfil;
