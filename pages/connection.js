@@ -14,6 +14,7 @@ import { useRouter } from "next/router";
 import logoGoogle from "../public/logo-google.png";
 import Image from "next/image";
 import { signIn } from "../context/firebase";
+import { Label } from "@mui/icons-material";
 const connection = () => {
   const router = useRouter();
   const [email, setEmail] = useState("");
@@ -25,6 +26,8 @@ const connection = () => {
     setEmail("");
     setPassword("");
     const res = await signIn(email, password);
+    console.log(res.error);
+
     if (res.error) {
       seterror(res.error);
     } else {
@@ -99,6 +102,8 @@ const connection = () => {
                   />
                 </Grid>
               </Grid>
+              {error ? <span>{error}</span> : null}
+
               <Box pt={{ xs: 2, md: 2 }} pb={{ xs: 1, md: 1 }}>
                 <Button type="submit" variant="contained" color="secondary">
                   {"Connection"}

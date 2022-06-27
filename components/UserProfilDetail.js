@@ -12,16 +12,26 @@ import {
 } from "@mui/material";
 import AppContext from "../context/AuthContext";
 import { useState } from "react";
-import { doc, updateDoc, collection, getFirestore } from "firebase/firestore";
+import {
+  updateDoc,
+  collection,
+  getFirestore,
+  query,
+  where,
+  getDocs,
+  doc,
+  setDoc,
+} from "firebase/firestore";
 import { app } from "../firebase-config";
 import { async } from "@firebase/util";
 import { useContext } from "react";
-import { getAuth, updateProfile } from "firebase/auth";
 
 const db = getFirestore(app);
 
 const UserProfilDetail = () => {
   const { user } = useContext(AppContext);
+  const [uid, setUid] = useState(user && user.uid);
+  const [postal, setPostal] = useState(user && user.postal);
 
   const [lastName, setLastName] = useState(user && user.lastName);
   const [firstName, setFirstName] = useState(user && user.firstName);
@@ -31,15 +41,22 @@ const UserProfilDetail = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const users = doc(db, "users");
-    await updateDoc(users, {
+
+    const users = query(collection(db, "users"), where("uid", "==", uid));
+    const querySnapshot = await getDocs(users);
+    let docID = "";
+    querySnapshot.forEach((doc) => {
+      docID = doc.uid;
+    });
+
+    const useruid = setDoc(doc(db, "users", docID));
+    await updateDoc(useruid, {
       lastName: lastName,
-      adresse: adresse,
       firstName: firstName,
       email: email,
+      adresse: adresse,
       city: city,
-    }).catch((error) => {
-      console.log(error.message);
+      postal: postal,
     });
   };
   return (
@@ -84,7 +101,6 @@ const UserProfilDetail = () => {
                     variant="outlined"
                   />
                 </Grid>
-
                 <Grid item md={6} xs={12}>
                   <TextField
                     fullWidth
@@ -98,10 +114,20 @@ const UserProfilDetail = () => {
                 <Grid item md={6} xs={12}>
                   <TextField
                     fullWidth
-                    label="ville"
+                    label="Ville"
                     value={city || ""}
                     name="city"
                     onChange={(e) => setCity(e.target.value)}
+                    variant="outlined"
+                  />
+                </Grid>{" "}
+                <Grid item md={6} xs={12}>
+                  <TextField
+                    fullWidth
+                    label="code Postal"
+                    value={postal || ""}
+                    name="postal"
+                    onChange={(e) => setPostal(e.target.value)}
                     variant="outlined"
                   />
                 </Grid>

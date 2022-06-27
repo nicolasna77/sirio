@@ -12,8 +12,6 @@ import useApi from "../components/service/useApi";
 const Home = () => {
   const { res } = useApi();
 
-  console.log(res);
-
   return (
     <div>
       <Selection />

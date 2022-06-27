@@ -51,6 +51,7 @@ const Profil = () => {
   return (
     <Box
       sx={{
+        minHeight: "80vh",
         flexGrow: "1",
         bgcolor: "background.paper",
         display: { xs: "block", sm: "flex" },

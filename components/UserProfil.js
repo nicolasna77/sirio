@@ -12,7 +12,6 @@ import AppContext from "../context/AuthContext";
 const UserProfil = () => {
   const { user } = useContext(AppContext);
 
-  console.log(user);
   return (
     <Grid item lg={4} md={6} xs={12}>
       <Card>

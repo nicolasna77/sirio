@@ -10,6 +10,7 @@ import PaymentIcon from "@mui/icons-material/Payment";
 import SuccessPanier from "../components/SuccessPanier";
 import StepperPanier from "../components/StepperPanier";
 import { useState } from "react";
+import StepperDelivery from "../components/stepperDelivery";
 
 const ColorlibStepIconRoot = styled("div")(({ ownerState }) => ({
   zIndex: 1,
@@ -27,7 +28,7 @@ const ColorlibStepIconRoot = styled("div")(({ ownerState }) => ({
   }),
 }));
 
-const steps = ["Panier", "Detail livraison", "Payement"];
+const steps = ["Panier", "Livraison", "Payement"];
 
 function ColorlibStepIcon(props) {
   const { active, completed, className } = props;
@@ -49,14 +50,15 @@ function ColorlibStepIcon(props) {
 }
 
 const panier = () => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [activeStep, setActiveStep] = useState(0);
-  console.log(activeStep);
+
   function getStepsContent(activeStep) {
     switch (activeStep) {
       case 0:
         return <StepperPanier setActiveStep={setActiveStep} />;
       case 1:
-        return "<PaymentForm />";
+        return <StepperDelivery />;
       case 2:
         return "<ReviewOrder />";
       default:
@@ -65,7 +67,7 @@ const panier = () => {
   }
   return (
     <Box
-      sx={{ width: "100%", maxWidth: "1000px", margin: "0 auto", mt: "50px" }}
+      sx={{ width: "100%", minHeight: "80vh", margin: "0 auto", mt: "50px" }}
     >
       {activeStep === steps.length ? (
         <SuccessPanier />
